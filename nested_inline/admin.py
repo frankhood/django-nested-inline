@@ -388,29 +388,29 @@ class NestedInline(InlineInstancesMixin, InlineModelAdmin):
         extra = '' if settings.DEBUG else '.min'
         if VERSION[:2] >= (2, 2):
             js = [
-                'vendor/select2/select2.full.js',
-                'vendor/jquery/jquery%s.js' % extra,
+                'admin/js/vendor/jquery/jquery%s.js' % extra,
+                'admin/js/vendor/select2/select2.full.js',
             ]
         elif VERSION[:2] >= (2, 0):
             js = [
-                'vendor/jquery/jquery%s.js' % extra,
-                'vendor/select2/select2.full.js',
+                'admin/js/vendor/jquery/jquery%s.js' % extra,
+                'admin/js/vendor/select2/select2.full.js',
             ]
         elif VERSION[:2] >= (1, 9):
             js = [
-                'vendor/jquery/jquery%s.js' % extra,
+                'admin/js/vendor/jquery/jquery%s.js' % extra,
             ]
         else:
             js = [
-                'jquery%s.js' % extra,
+                'admin/js/jquery%s.js' % extra,
             ]
-        js.append('jquery.init.js')
-        js.append('inlines-nested%s.js' % extra)
+        js.append('admin/js/jquery.init.js')
+        js.append('admin/js/inlines-nested%s.js' % extra)
         if self.prepopulated_fields:
-            js.extend(['urlify.js', 'prepopulate%s.js' % extra])
+            js.extend(['admin/js/urlify.js', 'admin/js/prepopulate%s.js' % extra])
         if self.filter_vertical or self.filter_horizontal:
-            js.extend(['SelectBox.js', 'SelectFilter2.js'])
-        return forms.Media(js=[static('admin/js/%s' % url) for url in js])
+            js.extend(['admin/js/SelectBox.js', 'admin/js/SelectFilter2.js'])
+        return forms.Media(js=js)
 
     def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request):
